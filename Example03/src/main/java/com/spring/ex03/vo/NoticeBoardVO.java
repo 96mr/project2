@@ -1,10 +1,12 @@
 package com.spring.ex03.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class NoticeBoardVO {
 	private int id;
 	private int category;
+	private List<CategoryVO> categories;
 	private String title;
 	private String content;
 	private int hit;
@@ -22,6 +24,12 @@ public class NoticeBoardVO {
 	}
 	public void setCategory(int category) {
 		this.category = category;
+	}
+	public List<CategoryVO> getCategories() {
+		return categories;
+	}
+	public void setCategories(List<CategoryVO> categories) {
+		this.categories = categories;
 	}
 	public String getTitle() {
 		return title;

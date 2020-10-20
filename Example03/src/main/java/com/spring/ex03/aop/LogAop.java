@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 public class LogAop {
 	private static final Logger log = LoggerFactory.getLogger(LogAop.class);
 	
-	//around가 적용될 포인트컷
 	@Around("within(com.spring.ex03.service.*)")
 	public Object loggerAop(ProceedingJoinPoint joinpoint) throws Throwable{
 		String signatureStr = joinpoint.getSignature().toShortString(); //기능이 적용되는 메서드 명
@@ -25,9 +24,5 @@ public class LogAop {
 			long endTime = System.currentTimeMillis();
 			log.info( signatureStr +" 수행 시간 : " +(endTime-startTime) +"ms");
 		}
-	}
-	
-	@Before("within(com.spring.ex03.service.*)")
-	public void beforeMethod() {
 	}
 }
