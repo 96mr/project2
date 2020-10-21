@@ -37,6 +37,13 @@
 		WHERE id = #{id}
 	</select>
 	
+	<select id="memberList" resultType="MemberVO">
+		SELECT id, name, enter
+		FROM MEMBER
+		WHERE verify = 1
+		ORDER BY enter
+	</select>
+	
 	<select id="selectMember" parameterType="String" resultType="HashMap">
 		SELECT M.id, name, email, enter, save_name
 		FROM MEMBER M, MEMBER_IMAGE MI

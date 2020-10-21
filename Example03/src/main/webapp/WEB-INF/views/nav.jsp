@@ -39,7 +39,7 @@
 		                <c:if test="${sessionID.verify == 9}">
 		                <li class="nav-item">
 		                    <a class="nav-link" href="${pageContext.request.contextPath }/admin/register">
-		                    	가입요청 
+		                    	회원관리 
 		                    	<span class="badge badge-dark">1</span>
 		                    </a>
 		                </li>

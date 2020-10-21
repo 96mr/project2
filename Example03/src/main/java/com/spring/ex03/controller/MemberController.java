@@ -108,8 +108,13 @@ public class MemberController {
 		String pw = request.getParameter("password");
 		Map<String,Object> map = service.login(id, pw);
 		if((int)map.get("result") == 1) {
-			request.getSession().setAttribute("sessionID", (MemberVO) map.get("member"));
-			return "redirect:/";
+			HttpSession session = request.getSession();
+			MemberVO member = (MemberVO) map.get("member");
+			member.setPassword(null);
+			session.setAttribute("sessionID", member);		
+			String prev_url = (String) session.getAttribute("prev_url"); //이전 페이지가 있는가?(인터셉터)
+			if(prev_url == null) return "redirect:/home";						 //없다면 home으로
+			return "redirect:"+prev_url;
 		}else {
 			rttr.addFlashAttribute("msg", "아이디나 비밀번호가 일치하지 않습니다");
 			return "redirect:/login";
@@ -123,12 +128,20 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public String profile( Model model) {
+		//프로필화
+		return "profile";
+	}
+	
 	@RequestMapping(value = "/admin/register", method = RequestMethod.GET)
 	public String adminRegister(Model model) throws Exception {
 		logger.info("admin register");
-		//가입허락이 필요한 회원들
-		List<MemberVO> vo = service.reqAuthMember();
-		model.addAttribute("list", vo);
+		
+		List<MemberVO> reqAuth = service.reqAuthMember();
+		List<MemberVO> memberList = service.memberList();
+		model.addAttribute("reqAuthList", reqAuth);
+		model.addAttribute("memberList", memberList);
 		return "admin/register_auth";
 	}
 
@@ -139,12 +152,6 @@ public class MemberController {
 		service.authMember(id);
 		rttr.addFlashAttribute("msg", "가입을 허락하였습니다!");
 		return "redirect:/admin/register";
-	}
-	
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	public String profile( Model model) {
-		//프로필화
-		return "profile";
 	}
 	
 }

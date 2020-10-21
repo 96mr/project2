@@ -9,12 +9,21 @@
 
 	<beans:bean id="loginInterceptor" class="com.spring.ex03.interceptor.loginInterceptor">
 	</beans:bean>
+	<beans:bean id="adminInterceptor" class="com.spring.ex03.interceptor.adminInterceptor">
+	</beans:bean>
 	<interceptors>
 		<interceptor>
 			<mapping path="/notice/write"/>
 			<mapping path="/profile"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
+		
+		<interceptor>
+			<mapping path="/notice/write"/>
+			<mapping path="/admin/*"/>
+			<beans:ref bean="adminInterceptor"/>
+		</interceptor>
+		
 		<beans:bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
 		        <beans:property name="cacheSeconds" value="0" />
 		        <beans:property name="useExpiresHeader" value="true" />

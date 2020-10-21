@@ -60,6 +60,11 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	public List<MemberVO> memberList() throws Exception {
+		return dao.memberList();
+	}
+
+	@Override
 	public Map<String, String> selectMember(String id) throws Exception {
 		return dao.selectMember(id);
 	}

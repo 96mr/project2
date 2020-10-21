@@ -1,6 +1,8 @@
 package com.spring.ex03.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,6 +25,22 @@ public class NoticeBoardDaoImpl implements NoticeBoardDao {
 	@Override
 	public List<CategoryVO> listCategory() {
 		return mapper.listCategory();
+	}
+
+	@Override
+	public List<Map<String,Object>> listNotice(Map<String, Object> map) {
+		return mapper.listNotice(map);
+	}
+
+	@Override
+	public int boardCnt() throws Exception {
+		return mapper.boardCnt();
+	}
+
+	@Override
+	public HashMap<String,Object> detailNotice(int id) throws Exception {
+		mapper.hit(id);
+		return mapper.detailNotice(id);
 	}
 
 }

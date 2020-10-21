@@ -25,22 +25,42 @@
 		<div style="height: 100vh">
 			<div class="bg-dark p-4 justify-content-center" style="height: 25vh;">
 				<h1>관리자 페이지</h1>
-				<h5>가입신청허락</h5>
+				<h5>회원관리</h5>
 			</div>
 			<div class="mt-4">
-				<div id="gallery-list">
-					<div class="row justify-content-center m-4">
-					<c:forEach var="list" items="${list}">
-						<div class="col-sm-3 p-2">
-							<div class="card p-2">
+				<div class="p-2">
+					<h3>가입 신청</h3>
+					<hr class="bg-dark" style="border-width:5px;">
+					<div class="row m-4">
+					<c:forEach var="list" items="${reqAuthList}">
+						<div class="col-sm-2 p-2">
+							<div class="card">
 								<div class="card-body">
 									<h4 class="card-title">${list.name }</h4>
 									<p class="card-text">
 									${list.enter}기
 										<form action="${pageContext.request.contextPath }/authMember" method="POST">
 											<input type="hidden" name="id" value="${list.id}" />
-											<button class="btn btn-dark" type="submit">가입 허락</button>
+											<button class="btn btn-dark justify-content-center" type="submit">가입 허락</button>
 										</form>
+									</p>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+					</div>
+				</div>
+				<div class="p-2">
+					<h3>회원 목록</h3>
+					<hr class="bg-dark" style="border-width:5px;">
+					<div class="row m-4">
+					<c:forEach var="list" items="${memberList}">
+						<div class="col-sm-3 p-2">
+							<div class="card p-2">
+								<div class="card-body">
+									<h4 class="card-title">${list.name }</h4>
+									<p class="card-text">
+									${list.enter}기
 									</p>
 								</div>
 							</div>

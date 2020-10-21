@@ -11,4 +11,5 @@ public interface MemberService {
 	public Map<String, Object> login(String id, String password) throws Exception;
 	public Map<String, String> selectMember(String id) throws Exception;
 	public List<MemberVO> reqAuthMember() throws Exception;
+	public List<MemberVO> memberList() throws Exception;
 }

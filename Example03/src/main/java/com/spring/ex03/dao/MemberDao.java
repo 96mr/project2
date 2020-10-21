@@ -11,4 +11,5 @@ public interface MemberDao {
 	public MemberVO login(String id) throws Exception;
 	public Map<String, String> selectMember(String id) throws Exception;
 	public List<MemberVO> reqAuthMember() throws Exception;
+	public List<MemberVO> memberList() throws Exception;
 }

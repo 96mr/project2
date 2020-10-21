@@ -3,7 +3,6 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.ex03.mapper.NoticeBoardMapper">
-	
 	<!-- 글 작성 -->
 	<insert id ="insertBoard" parameterType="NoticeBoardVO">
 		INSERT INTO 
@@ -16,14 +15,46 @@
 		FROM CATEGORY
 	</select>
 	
-	<select id="listNotice" parameterType="HashMap" resultType="NoticeBoardVO">
-		SELECT id, category, title, content, hit, regdate, writer
+	<select id="listNotice" parameterType="HashMap" resultType="HashMap">
+	<![CDATA[	
+		SELECT id, category, title, hit, REGDATE, writer, name
+		FROM(
+	        SELECT 
+	            ROWNUM AS RNUM, b.*
+	        FROM (
+	        	SELECT nb.id, category, title, hit, nb.REGDATE, writer, name
+	            FROM NOTICE_BOARD nb, MEMBER m
+	            WHERE nb.writer = m.id
+	 ]]>
+	            <if test="category != null">
+	            AND category = #{category}
+	            </if>
+	            ORDER BY nb.id desc
+	 <![CDATA[
+	        ) b
+	        WHERE
+	            ROWNUM <= #{last_board}
+    	) board
+		WHERE #{start_board} <= RNUM
+	]]>
+	</select>
+	
+	<select id="detailNotice" parameterType="int" resultType="HashMap">
+		SELECT b.id board_num, category, title, content, hit, REGDATE, writer, name
+		FROM NOTICE_BOARD b, (select id, name from MEMBER) m
+		WHERE b.writer = m.id
+		AND b.id = #{id}
+	</select>
+	
+	<update id="hit" parameterType="int">
+	 	UPDATE NOTICE_BOARD
+		SET hit = hit + 1
+		WHERE id = #{id}
+	</update>
+	
+	<select id="boardCnt" resultType="int">
+		SELECT count(*)
 		FROM NOTICE_BOARD
-		WHERE 
 	</select>
-	
-	<select id="detailNotice" parameterType="int" resultType="NoticeBoardVO">
-	</select>
-	
 	
 </mapper>

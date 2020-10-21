@@ -32,6 +32,11 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	public List<MemberVO> memberList() throws Exception {
+		return mapper.memberList();
+	}
+
+	@Override
 	public MemberVO login(String id) throws Exception {
 		return mapper.login(id);
 	}

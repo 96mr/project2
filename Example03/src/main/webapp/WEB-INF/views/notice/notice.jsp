@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -33,10 +34,11 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>카테고리</th>
-								<th style="width:60%;">제목</th>
+								<th>글번호</th>
+								<th style="width:50%;">제목</th>
 								<th>작성자</th>
 								<th>날짜</th>
+								<th>조회수</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -47,25 +49,30 @@
 							</tr>
 							</c:when>
 							<c:otherwise>
-								<tr onClick="location.href='${pageContext.request.contextPath}/detail'" style="cursor: pointer;">
-									<td>여행</td>
-									<td>어쩌고 저쩌고 여행</td>
-									<td>ooo</td>
-									<td>2020.09.10</td>
+							<c:forEach var="list" items="${noticeList}">
+								<tr onClick="location.href='${pageContext.request.contextPath}/notice/${list.ID}'" style="cursor: pointer;">
+									<td>${list.ID }</td>
+									<td>${list.TITLE }</td>
+									<td>${list.NAME }</td>
+									<td><fmt:formatDate value="${list.REGDATE}" pattern="yyyy.MM.dd" /></td>
+									<td>${list.HIT}</td>
 								</tr>
+							</c:forEach>
 							</c:otherwise>
 						</c:choose>
 						</tbody>
 					</table>
 				</div>
 				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/notice/">◀</a></li>
-					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/notice?page=1">1</a></li>
-					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/notice?page=2">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#">▶</a></li>
+				<c:if test="${paging.prev }">
+					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/notice?page=${paging.start_page-1 }">◀</a></li>
+				</c:if>
+				<c:forEach var="i" begin ="${paging.start_page }" end="${paging.end_page }">
+    				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/notice?page=${i}">${i}</a></li>
+				</c:forEach>
+				<c:if test="${paging.next }">
+					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/notice?page=${paging.end_page+1 }">▶</a></li>
+				</c:if>
 				</ul>
 				<c:if test="${sessionID.verify == 9 }">
 					<a href="${pageContext.request.contextPath }/notice/write" class="btn btn-dark">글쓰기</a>

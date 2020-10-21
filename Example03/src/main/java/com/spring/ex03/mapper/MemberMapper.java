@@ -12,4 +12,5 @@ public interface MemberMapper {
 	public MemberVO login(String id);
 	public Map<String, String> selectMember(String id);
 	public List<MemberVO> reqAuthMember();
+	public List<MemberVO> memberList();
 } 

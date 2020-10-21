@@ -1,5 +1,7 @@
 package com.spring.ex03.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -27,18 +29,17 @@ public class NoticeController {
 	private NoticeBoardService service;
 	
 	@RequestMapping(value = "/notice/write", method = RequestMethod.GET)
-	public String notice_write(Model model) {
+	public String notice_write(Model model) throws Exception {
 		logger.info("GET notice write");
 		NoticeBoardVO vo = new NoticeBoardVO();
 		vo.setCategories(service.listCategory());
-		model.addAttribute("notice", vo);
-		
+		model.addAttribute("notice", vo);		
 		return "notice/notice_write";
 	}
 	
 	@RequestMapping(value = "/notice/write", method = RequestMethod.POST)
 	public String notice_write(@ModelAttribute("notice") NoticeBoardVO vo, HttpSession session,
-								Model model, RedirectAttributes rttr) {
+								Model model, RedirectAttributes rttr) throws Exception {
 		logger.info("POST notice write");
 		if(vo.getContent().trim().isEmpty()|| vo.getTitle().trim().isEmpty()) { //공백여부
 			vo.setCategories(service.listCategory());
@@ -52,20 +53,23 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "/notice", method = RequestMethod.GET)
-	public String notice(@RequestParam(value= "page", required = false)String page, Model model) {
+	public String notice(@RequestParam(value= "page", required = false) String page,
+						 @RequestParam(value="category", required =false) String category, Model model) throws Exception {
 		logger.info("notice");
-		//Map<String, Object> map =  service.newsList();
-		//model.addAttribute("noticeList", 글);
-		//model.addAttribute("page", 페이지번호);
+		Map<String, Object> map = service.listNotice(page, category == null? "":category);
+		model.addAttribute("noticeList", map.get("list"));
+		model.addAttribute("paging", map.get("paging"));
+		model.addAttribute("category", category);
+		model.addAttribute("page", page);
 		return "notice/notice";
 	}
 	
 	@RequestMapping(value = {"/notice/{board}"}, method = RequestMethod.GET)
-	public String notice_detail(@PathVariable("board") int board, Model model) {
+	public String notice_detail(@PathVariable("board") int board, Model model) throws Exception {
 		logger.info("notice");
-		//Map<String, Object> map =  service.newsList();
-		//model.addAttribute("board", 글);
-		return "notice_detail";
+		Map<String,Object> map = service.detailNotice(board);
+		model.addAttribute("board",map);
+		return "notice/notice_detail";
 	}
 
 }

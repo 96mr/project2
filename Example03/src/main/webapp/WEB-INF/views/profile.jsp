@@ -28,9 +28,9 @@
 					<div class="col-sm-3 m-2 border">
 						<div class="m-2">
 							<ul class="navbar-nav mr-auto text-center">
+								<li class="nav-item m-2 p-2 border-bottom"><a href="${pageContext.request.contextPath }/" class="nav-link">회원정보</a></li>
 								<li class="nav-item m-2 p-2 border-bottom"><a href="${pageContext.request.contextPath }/" class="nav-link">회원정보수정</a></li>
 								<li class="nav-item m-2 p-2 border-bottom"><a href="${pageContext.request.contextPath }/" class="nav-link">비밀번호변경</a></li>
-								<li class="nav-item m-2 p-2"><a href="${pageContext.request.contextPath }/" class="nav-link">친구목록</a></li>
 							</ul>
 						</div>
 					</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -27,27 +28,27 @@
             <table class="table table-bordered">
                 <tr>
                   <td class="text-center">제목</td>
-                  <td>어쩌고 저쩌고 여행 입니다</td>
+                  <td style="width:50%;">${board.TITLE}</td>
                   <td class="text-center">작성자</td>
-                  <td>김아무개</td>
+                  <td>${board.NAME}</td>
                 </tr>
                 <tr>
                   <td class="text-center">첨부파일</td>
-                  <td>첨부파일이 존재하지 않습니다.</td>
+                  <td></td>
                   <td class="text-center">날짜</td>
-                  <td>2020.00.00</td>
+                  <td><fmt:formatDate value="${board.REGDATE}" pattern="yyyy.MM.dd" /></td>
                 </tr>
                 <tr>
                   <td class="text-center" colspan="4">내용</td>
                 </tr>
                 <tr>
                   <td colspan="4" style="height:500px;">
-                    0000년 00월 00일 ㅇㅇㅇ 일정을 알려드립니다.
+                    ${board.CONTENT}
                   </td>
                 </tr>
             </table>
           </div>
-          <button class="btn btn-dark" type="button" name="button">목록</button>
+          <a class="btn btn-dark" href="${pageContext.request.contextPath }/notice">목록</a>
 		</div>
 	</div>
     <!-- Optional JavaScript -->
