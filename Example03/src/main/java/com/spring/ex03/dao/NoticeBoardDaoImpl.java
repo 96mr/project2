@@ -33,8 +33,8 @@ public class NoticeBoardDaoImpl implements NoticeBoardDao {
 	}
 
 	@Override
-	public int boardCnt() throws Exception {
-		return mapper.boardCnt();
+	public int boardCnt(String category) throws Exception {
+		return mapper.boardCnt(category);
 	}
 
 	@Override

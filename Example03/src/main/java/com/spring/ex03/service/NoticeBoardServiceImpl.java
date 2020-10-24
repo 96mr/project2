@@ -32,11 +32,19 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	@Override
 	public Map<String, Object> listNotice(String page, String category) throws Exception {
 		Map<String, Object> map = new HashMap<>();
-
-		PagingVO paging = new PagingVO(dao.boardCnt(), page == null?1:Integer.parseInt(page));
+		
+		if(!"".equals(category)) {
+			map.put("category", category);
+		}
+		PagingVO paging = new PagingVO(dao.boardCnt((String)map.get("category")), Integer.parseInt(page));
 		map.put("start_board",paging.getStart_board());
 		map.put("last_board",paging.getLast_board());
-
+		/*
+		 * if("EDU".equals(category)) { map.put("category", 1); }else
+		 * if("EVENT".equals(category)) { map.put("category", 2); }else
+		 * if("ETC".equals(category)) { map.put("category", 3); }
+		 */
+		
 		Map<String, Object> result = new HashMap<>();
 		result.put("list",dao.listNotice(map));
 		result.put("paging",paging);

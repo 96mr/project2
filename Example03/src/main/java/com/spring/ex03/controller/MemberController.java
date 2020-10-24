@@ -145,7 +145,7 @@ public class MemberController {
 		return "admin/register_auth";
 	}
 
-	@RequestMapping(value = "/authMember", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/authMember", method = RequestMethod.POST)
 	public String authMember(String id, RedirectAttributes rttr) throws Exception {
 		logger.info("authMember");
 

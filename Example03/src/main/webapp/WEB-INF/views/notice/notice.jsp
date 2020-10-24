@@ -30,6 +30,14 @@
 				<h5>인스 소식과 정보를 안내해드립니다.</h5>
 			</div>
 			<div class="text-center">
+				<div class=" navbar-expand-sm w-100 justify-content-center ">
+					<ul class="navbar-nav m-3 text-center">
+						<li class="nav-item"><a href="${pageContext.request.contextPath}/notice" class="nav-link">전체</a></li>
+						<li class="nav-item"><a href="${pageContext.request.contextPath}/notice?category=EDU" class="nav-link">교육</a></li>
+						<li class="nav-item"><a href="${pageContext.request.contextPath}/notice?category=EVENT" class="nav-link">행사</a></li>
+						<li class="nav-item"><a href="${pageContext.request.contextPath}/notice?category=ETC" class="nav-link">기타</a></li>
+					</ul>
+				</div>
 				<div id="notice-list">
 					<table class="table table-hover">
 						<thead>
@@ -65,13 +73,22 @@
 				</div>
 				<ul class="pagination justify-content-center">
 				<c:if test="${paging.prev }">
-					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/notice?page=${paging.start_page-1 }">◀</a></li>
+					<li class="page-item">
+					<a class="page-link" 
+						href="${pageContext.request.contextPath }/notice?page=${paging.start_page-1 }&category=${category}">◀</a>
+					</li>
 				</c:if>
 				<c:forEach var="i" begin ="${paging.start_page }" end="${paging.end_page }">
-    				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/notice?page=${i}">${i}</a></li>
+    				<li class="page-item">
+    				<a class="page-link" 
+    				href="${pageContext.request.contextPath }/notice?page=${i}&category=${category}">${i}</a>
+    				</li>
 				</c:forEach>
 				<c:if test="${paging.next }">
-					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/notice?page=${paging.end_page+1 }">▶</a></li>
+					<li class="page-item">
+					<a class="page-link" 
+					href="${pageContext.request.contextPath }/notice?page=${paging.end_page+1 }&category=${category}">▶</a>
+					</li>
 				</c:if>
 				</ul>
 				<c:if test="${sessionID.verify == 9 }">

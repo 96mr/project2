@@ -39,7 +39,7 @@
 									<h4 class="card-title">${list.name }</h4>
 									<p class="card-text">
 									${list.enter}기
-										<form action="${pageContext.request.contextPath }/authMember" method="POST">
+										<form action="${pageContext.request.contextPath }/admin/authMember" method="POST">
 											<input type="hidden" name="id" value="${list.id}" />
 											<button class="btn btn-dark justify-content-center" type="submit">가입 허락</button>
 										</form>

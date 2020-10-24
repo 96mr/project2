@@ -11,7 +11,7 @@ public interface NoticeBoardMapper {
 	public void insertBoard(NoticeBoardVO vo);
 	public List<CategoryVO> listCategory();
 	public List<Map<String, Object>> listNotice(Map<String, Object> map);
-	public int boardCnt();
+	public int boardCnt(String category);
 	public HashMap<String,Object> detailNotice(int id);
 	public void hit(int id);
 }

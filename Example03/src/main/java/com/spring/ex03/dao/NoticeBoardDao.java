@@ -11,6 +11,6 @@ public interface NoticeBoardDao {
 	public void insertBoard(NoticeBoardVO vo)throws Exception;
 	public List<CategoryVO> listCategory() throws Exception;
 	public List<Map<String,Object>> listNotice(Map<String, Object> map) throws Exception;
-	public int boardCnt() throws Exception;
+	public int boardCnt(String category) throws Exception;
 	public HashMap<String, Object> detailNotice(int id) throws Exception;
 }

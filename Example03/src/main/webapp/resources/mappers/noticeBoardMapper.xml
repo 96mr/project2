@@ -22,14 +22,17 @@
 	        SELECT 
 	            ROWNUM AS RNUM, b.*
 	        FROM (
-	        	SELECT nb.id, category, title, hit, nb.REGDATE, writer, name
-	            FROM NOTICE_BOARD nb, MEMBER m
-	            WHERE nb.writer = m.id
+	        	SELECT n.id, n.category, n.title, n.hit, n.REGDATE, n.writer, m.name
+	            FROM NOTICE_BOARD n
+	            INNER JOIN MEMBER m
+	            ON n.writer = m.id
 	 ]]>
 	            <if test="category != null">
-	            AND category = #{category}
+	            INNER JOIN CATEGORY c
+	            ON n.category = c.id
+	            WHERE c.name = #{category}
 	            </if>
-	            ORDER BY nb.id desc
+	            ORDER BY n.id desc
 	 <![CDATA[
 	        ) b
 	        WHERE
@@ -52,9 +55,13 @@
 		WHERE id = #{id}
 	</update>
 	
-	<select id="boardCnt" resultType="int">
+	<select id="boardCnt" parameterType="String" resultType="int">
 		SELECT count(*)
-		FROM NOTICE_BOARD
+		FROM NOTICE_BOARD n JOIN CATEGORY c
+		ON n.category = c.id
+		<if test="value != null">
+			WHERE c.name = #{value}
+		</if>
 	</select>
 	
 </mapper>

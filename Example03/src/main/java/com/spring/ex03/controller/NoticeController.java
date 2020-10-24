@@ -56,7 +56,7 @@ public class NoticeController {
 	public String notice(@RequestParam(value= "page", required = false) String page,
 						 @RequestParam(value="category", required =false) String category, Model model) throws Exception {
 		logger.info("notice");
-		Map<String, Object> map = service.listNotice(page, category == null? "":category);
+		Map<String, Object> map = service.listNotice(page == null? "1":page, category == null? "":category);
 		model.addAttribute("noticeList", map.get("list"));
 		model.addAttribute("paging", map.get("paging"));
 		model.addAttribute("category", category);
