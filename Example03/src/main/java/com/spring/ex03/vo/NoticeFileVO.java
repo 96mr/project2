@@ -2,12 +2,13 @@ package com.spring.ex03.vo;
 
 import java.util.Date;
 
-public class NoticeImageVO {
+public class NoticeFileVO {
 	private int id;
 	private int notice_id;
 	private String org_name;
 	private String save_name;
 	private int file_size;
+	private String file_type;
 	private Date regdate;
 	
 	public int getId() {
@@ -39,6 +40,12 @@ public class NoticeImageVO {
 	}
 	public void setFile_size(int file_size) {
 		this.file_size = file_size;
+	}
+	public String getFile_type() {
+		return file_type;
+	}
+	public void setFile_type(String file_type) {
+		this.file_type = file_type;
 	}
 	public Date getRegdate() {
 		return regdate;

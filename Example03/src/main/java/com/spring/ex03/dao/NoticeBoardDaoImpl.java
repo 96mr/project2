@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.ex03.mapper.NoticeBoardMapper;
 import com.spring.ex03.vo.CategoryVO;
 import com.spring.ex03.vo.NoticeBoardVO;
+import com.spring.ex03.vo.NoticeFileVO;
 
 @Repository
 public class NoticeBoardDaoImpl implements NoticeBoardDao {
@@ -18,8 +19,13 @@ public class NoticeBoardDaoImpl implements NoticeBoardDao {
 	private NoticeBoardMapper mapper;
 	
 	@Override
-	public void insertBoard(NoticeBoardVO vo) {
-		mapper.insertBoard(vo);
+	public int insertBoard(NoticeBoardVO vo) {
+		return mapper.insertBoard(vo);
+	}
+	
+	@Override
+	public void insertFile(NoticeFileVO file) throws Exception {
+		mapper.insertFile(file);
 	}
 
 	@Override

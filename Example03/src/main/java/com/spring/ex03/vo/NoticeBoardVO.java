@@ -3,6 +3,8 @@ package com.spring.ex03.vo;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class NoticeBoardVO {
 	private int id;
 	private int category;
@@ -12,6 +14,7 @@ public class NoticeBoardVO {
 	private int hit;
 	private Date regdate;
 	private String writer;
+	private List<MultipartFile> files;
 	
 	public int getId() {
 		return id;
@@ -60,5 +63,11 @@ public class NoticeBoardVO {
 	}
 	public void setWriter(String writer) {
 		this.writer = writer;
+	}
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
 	}
 }

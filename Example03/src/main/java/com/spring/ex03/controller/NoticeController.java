@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.ex03.service.NoticeBoardService;
@@ -39,7 +40,7 @@ public class NoticeController {
 	
 	@RequestMapping(value = "/notice/write", method = RequestMethod.POST)
 	public String notice_write(@ModelAttribute("notice") NoticeBoardVO vo, HttpSession session,
-								Model model, RedirectAttributes rttr) throws Exception {
+							  Model model, RedirectAttributes rttr) throws Exception {
 		logger.info("POST notice write");
 		if(vo.getContent().trim().isEmpty()|| vo.getTitle().trim().isEmpty()) { //공백여부
 			vo.setCategories(service.listCategory());
@@ -48,6 +49,7 @@ public class NoticeController {
 		
 		MemberVO user = (MemberVO) session.getAttribute("sessionID");
 		vo.setWriter(user.getId());
+		System.out.println(vo.getFiles());
 		service.insertBoard(vo);
 		return "redirect:/notice";
 	}

@@ -5,9 +5,18 @@
 <mapper namespace="com.spring.ex03.mapper.NoticeBoardMapper">
 	<!-- 글 작성 -->
 	<insert id ="insertBoard" parameterType="NoticeBoardVO">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			SELECT notice_board_seq.nextval FROM DUAL
+		</selectKey>
 		INSERT INTO 
 			NOTICE_BOARD (id, category, title, content, writer) 
-		VALUES(notice_board_seq.nextval, #{category}, #{title}, #{content}, #{writer})
+		VALUES(#{id}, #{category}, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<insert id ="insertFile" parameterType="NoticeFileVO">
+		INSERT INTO 
+			NOTICE_FILE (id, notice_id, org_name, save_name, file_size, file_type) 
+		VALUES(notice_file_seq.nextval, #{notice_id}, #{org_name}, #{save_name}, #{file_size}, #{file_type})
 	</insert>
 	
 	<select id="listCategory" resultType="CategoryVO">
