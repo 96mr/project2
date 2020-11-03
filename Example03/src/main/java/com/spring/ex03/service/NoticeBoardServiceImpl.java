@@ -31,6 +31,11 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 			dao.insertFile((NoticeFileVO) list.get(i));
 		}
 	}
+	
+	@Override
+	public void modifyBoard(NoticeBoardVO vo) throws Exception {
+		dao.modifyBoard(vo);
+	}
 
 	@Override
 	public List<CategoryVO> listCategory() throws Exception{

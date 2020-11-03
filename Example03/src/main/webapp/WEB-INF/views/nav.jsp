@@ -6,7 +6,7 @@
         <div class="navbar-collapse collapse w-100 dual-collapse2 order-1 order-md-0">
             <ul class="navbar-nav ml-auto text-center">
                 <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath }/notice">공지사항</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath }/notice/list">공지사항</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="${pageContext.request.contextPath }/gallery">갤러리</a>

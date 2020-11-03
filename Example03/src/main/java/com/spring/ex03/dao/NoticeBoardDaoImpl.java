@@ -29,6 +29,11 @@ public class NoticeBoardDaoImpl implements NoticeBoardDao {
 	}
 
 	@Override
+	public void modifyBoard(NoticeBoardVO vo) throws Exception {
+		mapper.modifyBoard(vo);
+	}
+
+	@Override
 	public List<CategoryVO> listCategory() {
 		return mapper.listCategory();
 	}
