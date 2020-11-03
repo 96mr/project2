@@ -48,8 +48,7 @@
                 </tr>
             </table>
           </div>
-          <a class="btn btn-dark" href="${pageContext.request.contextPath }/notice/modify/${board.ID}">수정</a>
-          <a class="btn btn-dark" href="${pageContext.request.contextPath }/notice/list">목록</a>
+          <a class="btn btn-dark" href="${pageContext.request.contextPath }/notice">목록</a>
 		</div>
 	</div>
     <!-- Optional JavaScript -->

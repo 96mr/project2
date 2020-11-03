@@ -1,6 +1,5 @@
 package com.spring.ex03.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.ex03.service.NoticeBoardService;
@@ -54,7 +54,7 @@ public class NoticeController {
 		return "redirect:/notice";
 	}
 	
-	@RequestMapping(value = "/notice/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice", method = RequestMethod.GET)
 	public String notice(@RequestParam(value= "page", required = false) String page,
 						 @RequestParam(value="category", required =false) String category, Model model) throws Exception {
 		logger.info("notice");
@@ -74,41 +74,4 @@ public class NoticeController {
 		return "notice/notice_detail";
 	}
 
-	@RequestMapping(value = "/notice/modify/{board}", method = RequestMethod.GET)
-	public String notice_modify(@PathVariable("board") int board, HttpSession session, 
-								RedirectAttributes rttr, Model model) throws Exception {
-		logger.info("GET notice modify");
-		HashMap<String, Object> map = service.detailNotice(board);
-		if(map == null) {
-			rttr.addFlashAttribute("msg", "존재하지 않는 게시글입니다");
-			return "redirect:/notice/list";
-		}
-		String writer = (String) map.get("WRITER");	
-		MemberVO user = (MemberVO)session.getAttribute("sessionID");
-		if(!user.getId().equals(writer)) {
-			rttr.addFlashAttribute("msg", "작성자가 아닙니다!");
-			return "redirect:/notice/list";
-		}
-		NoticeBoardVO vo = new NoticeBoardVO();
-		vo.setId(Integer.parseInt(String.valueOf(map.get("ID"))));
-		vo.setTitle((String)map.get("TITLE"));
-		vo.setCategories(service.listCategory());
-		vo.setContent((String)map.get("CONTENT"));
-	
-		model.addAttribute("notice", vo);		
-		return "notice/notice_modify";
-	}
-	
-	@RequestMapping(value = "/notice/modify/{board}", method = RequestMethod.POST)
-	public String notice_modify(@ModelAttribute("notice") NoticeBoardVO vo,
-							  Model model, RedirectAttributes rttr) throws Exception {
-		logger.info("POST notice modify");
-		if(vo.getContent().trim().isEmpty()|| vo.getTitle().trim().isEmpty()) { //공백여부
-			vo.setCategories(service.listCategory());
-			return "notice/notice_write";
-		}
-
-		service.modifyBoard(vo);
-		return "redirect:/notice/"+ vo.getId();
-	}
 }
