@@ -14,6 +14,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/notice/write"/>
+			<mapping path="/notice/modify/*"/>
 			<mapping path="/profile"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>

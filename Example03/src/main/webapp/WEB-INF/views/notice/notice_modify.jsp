@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -15,8 +15,13 @@
     <style>
     </style>
     <title>공지사항</title>
-  </head>
-  <body>
+</head>
+<body>
+<c:if test ="${not empty msg}">
+	<script>
+		alert("${msg}");
+	</script>
+</c:if>
     <div class="container justify-content-center">
     	<%@ include file="/WEB-INF/views/nav.jsp"%>
 		<div class="justify-content-center" style="height: 100vh">
@@ -24,32 +29,35 @@
 				<h1>공지사항</h1>
 				<h5>인스 소식과 정보를 안내해드립니다.</h5>
 			</div>
-			<div class="mt-4">
-            <table class="table table-bordered">
-                <tr>
-                  <td class="text-center">제목</td>
-                  <td style="width:50%;">${board.TITLE}</td>
-                  <td class="text-center">작성자</td>
-                  <td>${board.NAME}</td>
-                </tr>
-                <tr>
-                  <td class="text-center">첨부파일</td>
-                  <td></td>
-                  <td class="text-center">날짜</td>
-                  <td><fmt:formatDate value="${board.REGDATE}" pattern="yyyy.MM.dd" /></td>
-                </tr>
-                <tr>
-                  <td class="text-center" colspan="4">내용</td>
-                </tr>
-                <tr>
-                  <td colspan="4" style="height:500px;">
-                    ${board.CONTENT}
-                  </td>
-                </tr>
-            </table>
-          </div>
-          <a class="btn btn-dark" href="${pageContext.request.contextPath }/notice/modify/${board.ID}">수정</a>
-          <a class="btn btn-dark" href="${pageContext.request.contextPath }/notice/list">목록</a>
+			<div class="text-center">
+				<form:form commandName="notice" method="post" enctype="multipart/form-data">
+					<form:hidden path="id"/>
+					<div class="mt-4">
+		            <table class="table table-bordered">
+		                <tr>
+		                	<td class="text-center">카테고리</td>
+		                    <td><form:select path="category" items="${notice.categories}" itemLabel="name" itemValue="id" >
+		                   		</form:select></td>
+		                	<td class="text-center">제목</td>
+		                	<td><form:input path="title" placeholder="제목을 입력해주세요"/></td>
+		                </tr>
+		                <tr>
+		                  	<td class="text-center">첨부파일</td>
+		                  	<td colspan="3"><form:input path="files" type="file" name="file"/></td>
+		                </tr>
+		                <tr>
+		                  	<td class="text-center" colspan="4">내용</td>
+		                </tr>
+		                <tr>
+		                  	<td colspan="4" style="height:500px;">
+		                   		<form:textarea path="content" cols="100" rows="20" style="resize:none"/>
+		                  	</td>
+		                </tr>
+		            </table>
+		          </div>
+		          <button class="btn btn-dark" type="submit" name="button">작성</button>
+				</form:form>
+			</div>
 		</div>
 	</div>
     <!-- Optional JavaScript -->

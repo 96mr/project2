@@ -10,9 +10,10 @@ import com.spring.ex03.vo.NoticeFileVO;
 
 public interface NoticeBoardDao {
 	public int insertBoard(NoticeBoardVO vo)throws Exception;
+	public void insertFile(NoticeFileVO file) throws Exception;
+	public void modifyBoard(NoticeBoardVO vo) throws Exception;
 	public List<CategoryVO> listCategory() throws Exception;
 	public List<Map<String,Object>> listNotice(Map<String, Object> map) throws Exception;
 	public int boardCnt(String category) throws Exception;
 	public HashMap<String, Object> detailNotice(int id) throws Exception;
-	public void insertFile(NoticeFileVO file) throws Exception;
 }

@@ -19,6 +19,12 @@
 		VALUES(notice_file_seq.nextval, #{notice_id}, #{org_name}, #{save_name}, #{file_size}, #{file_type})
 	</insert>
 	
+	<update id ="modifyBoard" parameterType="NoticeBoardVO">
+		UPDATE NOTICE_BOARD
+		SET category = #{category}, title = #{title}, content = #{content}
+		WHERE id = #{id}
+	</update>
+	
 	<select id="listCategory" resultType="CategoryVO">
 		SELECT id, name
 		FROM CATEGORY
@@ -52,7 +58,7 @@
 	</select>
 	
 	<select id="detailNotice" parameterType="int" resultType="HashMap">
-		SELECT b.id board_num, category, title, content, hit, REGDATE, writer, name
+		SELECT b.id id, category, title, content, hit, REGDATE, writer, name
 		FROM NOTICE_BOARD b, (select id, name from MEMBER) m
 		WHERE b.writer = m.id
 		AND b.id = #{id}

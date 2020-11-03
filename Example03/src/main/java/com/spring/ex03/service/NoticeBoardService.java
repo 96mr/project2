@@ -9,6 +9,7 @@ import com.spring.ex03.vo.NoticeBoardVO;
 
 public interface NoticeBoardService {
 	public void insertBoard(NoticeBoardVO vo) throws Exception;
+	public void modifyBoard(NoticeBoardVO vo) throws Exception;
 	public List<CategoryVO> listCategory() throws Exception;
 	public Map<String, Object> listNotice(String page, String category) throws Exception;
 	public HashMap<String,Object> detailNotice(int id) throws Exception;
