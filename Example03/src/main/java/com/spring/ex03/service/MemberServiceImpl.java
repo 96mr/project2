@@ -1,6 +1,5 @@
 package com.spring.ex03.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,17 +35,15 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Map<String, Object> login(String id, String password) throws Exception {
-		Map<String, Object> map = new HashMap<>();
+	public MemberVO login(String id, String password) throws Exception {
+		MemberVO result = null;
 		MemberVO vo = dao.login(id);
-		map.put("result", 0);
-		if(vo !=null) {
-			if(passwordEncoder.matches(password, vo.getPassword())) {
-				map.put("result",1);
-				map.put("member", vo);
-			}
+		if(passwordEncoder.matches(password, vo.getPassword())) {
+			vo.setPassword(null);
+			result = vo;
+			return result;
 		}
-		return map;
+		return result;
 	}
 		
 	@Override

@@ -31,8 +31,8 @@
 		WHERE id = #{id}
 	</update>
 	
-	<select id="login" parameterType="String" resultType="MemberVO">
-		SELECT *
+	<select id="login" parameterType="HashMap" resultType="MemberVO">
+		SELECT id, password, name, verify
 		FROM MEMBER
 		WHERE id = #{id}
 	</select>

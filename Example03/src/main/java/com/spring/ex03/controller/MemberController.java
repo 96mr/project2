@@ -106,12 +106,14 @@ public class MemberController {
 		//로그인 성공, 실패	
 		String id = request.getParameter("id");
 		String pw = request.getParameter("password");
-		Map<String,Object> map = service.login(id, pw);
-		if((int)map.get("result") == 1) {
+		if(id.trim().isEmpty() || pw.trim().isEmpty()) {
+			rttr.addFlashAttribute("msg", "아이디와 비밀번호를 입력해주세요");
+			return "redirect:/login";
+		}
+		MemberVO login = service.login(id, pw);
+		if(login != null) {
 			HttpSession session = request.getSession();
-			MemberVO member = (MemberVO) map.get("member");
-			member.setPassword(null);
-			session.setAttribute("sessionID", member);		
+			session.setAttribute("sessionID", login);		
 			String prev_url = (String) session.getAttribute("prev_url"); //이전 페이지가 있는가?(인터셉터)
 			if(prev_url == null) return "redirect:/home";						 //없다면 home으로
 			return "redirect:"+prev_url;
