@@ -20,7 +20,8 @@ public class NoticeBoardDaoImpl implements NoticeBoardDao {
 	
 	@Override
 	public int insertBoard(NoticeBoardVO vo) {
-		return mapper.insertBoard(vo);
+		mapper.insertBoard(vo);
+		return vo.getId();
 	}
 	
 	@Override

@@ -51,7 +51,7 @@ public class NoticeController {
 		vo.setWriter(user.getId());
 		System.out.println(vo.getFiles());
 		service.insertBoard(vo);
-		return "redirect:/notice";
+		return "redirect:/notice/list";
 	}
 	
 	@RequestMapping(value = "/notice/list", method = RequestMethod.GET)
@@ -59,10 +59,10 @@ public class NoticeController {
 						 @RequestParam(value="category", required =false) String category, Model model) throws Exception {
 		logger.info("notice");
 		Map<String, Object> map = service.listNotice(page == null? "1":page, category == null? "":category);
-		model.addAttribute("noticeList", map.get("list"));
-		model.addAttribute("paging", map.get("paging"));
-		model.addAttribute("category", category);
-		model.addAttribute("page", page);
+		model.addAttribute("noticeList", map.get("list"))
+			 .addAttribute("paging", map.get("paging"))
+			 .addAttribute("category", category)
+			 .addAttribute("page", page);
 		return "notice/notice";
 	}
 	
