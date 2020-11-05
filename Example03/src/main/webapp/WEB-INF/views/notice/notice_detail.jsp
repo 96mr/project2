@@ -34,7 +34,11 @@
                 </tr>
                 <tr>
                   <td class="text-center">첨부파일</td>
-                  <td></td>
+                  <td>
+                  	<c:forEach var="list" items="${fileList}">
+                  		${list.org_name}(${list.file_size}kb) <br/>
+                  	</c:forEach>
+                  </td>
                   <td class="text-center">날짜</td>
                   <td><fmt:formatDate value="${board.REGDATE}" pattern="yyyy.MM.dd" /></td>
                 </tr>
@@ -48,7 +52,9 @@
                 </tr>
             </table>
           </div>
-          <a class="btn btn-dark" href="${pageContext.request.contextPath }/notice/modify/${board.ID}">수정</a>
+          <c:if test="${sessionID.verify == 9 }">
+          	<a class="btn btn-dark" href="${pageContext.request.contextPath }/notice/modify/${board.ID}">수정</a>
+          </c:if>
           <a class="btn btn-dark" href="${pageContext.request.contextPath }/notice/list">목록</a>
 		</div>
 	</div>

@@ -43,7 +43,8 @@
 		                </tr>
 		                <tr>
 		                  	<td class="text-center">첨부파일</td>
-		                  	<td colspan="3"><form:input path="files" type="file" name="file"/></td>
+		                  	<td colspan="3">
+		                  	<form:input path="files" type="file" name="file"/></td>
 		                </tr>
 		                <tr>
 		                  	<td class="text-center" colspan="4">내용</td>

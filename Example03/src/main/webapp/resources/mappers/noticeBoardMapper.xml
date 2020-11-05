@@ -58,10 +58,16 @@
 	</select>
 	
 	<select id="detailNotice" parameterType="int" resultType="HashMap">
-		SELECT b.id id, category, title, content, hit, REGDATE, writer, name
-		FROM NOTICE_BOARD b, (select id, name from MEMBER) m
-		WHERE b.writer = m.id
-		AND b.id = #{id}
+		select board.id id, category, title, content, hit, REGDATE, writer, name
+		from NOTICE_BOARD board, (select id, name from MEMBER) m
+		where board.writer = m.id
+		and board.id = #{id}
+	</select>
+	
+	<select id="noticeFileList" parameterType="int" resultType="NoticeFileVO">
+		SELECT *
+		FROM NOTICE_FILE
+		WHERE notice_id = #{id}
 	</select>
 	
 	<update id="hit" parameterType="int">

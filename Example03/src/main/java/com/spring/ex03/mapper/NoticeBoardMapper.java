@@ -16,5 +16,6 @@ public interface NoticeBoardMapper {
 	public List<Map<String, Object>> listNotice(Map<String, Object> map);
 	public int boardCnt(String category);
 	public HashMap<String,Object> detailNotice(int id);
+	public List<NoticeFileVO> noticeFileList(int id);
 	public void hit(int id);
 }

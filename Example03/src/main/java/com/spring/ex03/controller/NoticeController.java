@@ -1,6 +1,7 @@
 package com.spring.ex03.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.ex03.service.NoticeBoardService;
@@ -70,7 +72,8 @@ public class NoticeController {
 	public String notice_detail(@PathVariable("board") int board, Model model) throws Exception {
 		logger.info("notice");
 		Map<String,Object> map = service.detailNotice(board);
-		model.addAttribute("board",map);
+		model.addAttribute("board",map.get("board"));
+		model.addAttribute("fileList",map.get("fileList"));
 		return "notice/notice_detail";
 	}
 
@@ -78,11 +81,13 @@ public class NoticeController {
 	public String notice_modify(@PathVariable("board") int board, HttpSession session, 
 								RedirectAttributes rttr, Model model) throws Exception {
 		logger.info("GET notice modify");
-		HashMap<String, Object> map = service.detailNotice(board);
-		if(map == null) {
+		Map<String, Object> detail = service.detailNotice(board);
+		if(detail == null) {
 			rttr.addFlashAttribute("msg", "존재하지 않는 게시글입니다");
 			return "redirect:/notice/list";
 		}
+		@SuppressWarnings("unchecked")
+		Map<String, Object> map = (Map<String, Object>) detail.get("board");
 		String writer = (String) map.get("WRITER");	
 		MemberVO user = (MemberVO)session.getAttribute("sessionID");
 		if(!user.getId().equals(writer)) {
@@ -94,7 +99,7 @@ public class NoticeController {
 		vo.setTitle((String)map.get("TITLE"));
 		vo.setCategories(service.listCategory());
 		vo.setContent((String)map.get("CONTENT"));
-	
+		
 		model.addAttribute("notice", vo);		
 		return "notice/notice_modify";
 	}

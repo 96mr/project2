@@ -61,8 +61,11 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	}
 
 	@Override
-	public HashMap<String,Object> detailNotice(int id) throws Exception {
-		return dao.detailNotice(id);
+	public Map<String,Object> detailNotice(int id) throws Exception {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("board", dao.detailNotice(id));
+		map.put("fileList", dao.noticeFileList(id));
+		return map;
 	}
 
 }

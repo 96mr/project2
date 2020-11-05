@@ -55,4 +55,10 @@ public class NoticeBoardDaoImpl implements NoticeBoardDao {
 		return mapper.detailNotice(id);
 	}
 
+	@Override
+	public List<NoticeFileVO> noticeFileList(int id) throws Exception {
+		return mapper.noticeFileList(id);
+	}
+	
+
 }
