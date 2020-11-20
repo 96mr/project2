@@ -25,32 +25,39 @@
 				<h5>인스 소식과 정보를 안내해드립니다.</h5>
 			</div>
 			<div class="mt-4">
-            <table class="table table-bordered">
-                <tr>
-                  <td class="text-center">제목</td>
-                  <td style="width:50%;">${board.TITLE}</td>
-                  <td class="text-center">작성자</td>
-                  <td>${board.NAME}</td>
-                </tr>
-                <tr>
-                  <td class="text-center">첨부파일</td>
-                  <td>
-                  	<c:forEach var="list" items="${fileList}">
-                  		${list.org_name}(${list.file_size}kb) <br/>
-                  	</c:forEach>
-                  </td>
-                  <td class="text-center">날짜</td>
-                  <td><fmt:formatDate value="${board.REGDATE}" pattern="yyyy.MM.dd" /></td>
-                </tr>
-                <tr>
-                  <td class="text-center" colspan="4">내용</td>
-                </tr>
-                <tr>
-                  <td colspan="4" style="height:500px;">
-                    ${board.CONTENT}
-                  </td>
-                </tr>
-            </table>
+			<c:choose>
+				<c:when test="${empty board }">
+					<p>존재하지 않는 게시글입니다.</p>
+				</c:when>
+				<c:otherwise>
+		            <table class="table table-bordered">
+		                <tr>
+		                  <td class="text-center">제목</td>
+		                  <td style="width:50%;">${board.TITLE}</td>
+		                  <td class="text-center">작성자</td>
+		                  <td>${board.NAME}</td>
+		                </tr>
+		                <tr>
+		                  <td class="text-center">첨부파일</td>
+		                  <td>
+		                  	<c:forEach var="list" items="${fileList}">
+		                  		${list.org_name}(${list.file_size}kb) <br/>
+		                  	</c:forEach>
+		                  </td>
+		                  <td class="text-center">날짜</td>
+		                  <td><fmt:formatDate value="${board.REGDATE}" pattern="yyyy.MM.dd" /></td>
+		                </tr>
+		                <tr>
+		                  <td class="text-center" colspan="4">내용</td>
+		                </tr>
+		                <tr>
+		                  <td colspan="4" style="height:500px;">
+		                    ${board.CONTENT}
+		                  </td>
+		                </tr>
+		            </table>
+		    	</c:otherwise>
+            </c:choose>
           </div>
           <c:if test="${sessionID.verify == 9 }">
           	<a class="btn btn-dark" href="${pageContext.request.contextPath }/notice/modify/${board.ID}">수정</a>

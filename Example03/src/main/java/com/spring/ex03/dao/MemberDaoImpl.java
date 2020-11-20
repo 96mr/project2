@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.spring.ex03.mapper.MemberMapper;
@@ -16,9 +17,13 @@ public class MemberDaoImpl implements MemberDao {
 	private MemberMapper mapper;
 	
 	@Override
-	public void register(MemberVO vo) throws Exception {
-		mapper.register(vo);
-		mapper.insertMemberImage(vo.getId());
+	public void register(MemberVO vo) {
+		try {
+			mapper.register(vo);
+			mapper.insertMemberImage(vo.getId());
+		}catch(DataAccessException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

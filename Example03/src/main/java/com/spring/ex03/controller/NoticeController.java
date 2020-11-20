@@ -1,7 +1,5 @@
 package com.spring.ex03.controller;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.ex03.service.NoticeBoardService;
@@ -51,7 +48,6 @@ public class NoticeController {
 		
 		MemberVO user = (MemberVO) session.getAttribute("sessionID");
 		vo.setWriter(user.getId());
-		System.out.println(vo.getFiles());
 		service.insertBoard(vo);
 		return "redirect:/notice/list";
 	}
@@ -83,17 +79,18 @@ public class NoticeController {
 		logger.info("GET notice modify");
 		Map<String, Object> detail = service.detailNotice(board);
 		if(detail == null) {
-			rttr.addFlashAttribute("msg", "존재하지 않는 게시글입니다");
-			return "redirect:/notice/list";
+			model.addAttribute("msg", "존재하지 않는 게시글입니다");
+			return "notice/notice";
 		}
 		@SuppressWarnings("unchecked")
 		Map<String, Object> map = (Map<String, Object>) detail.get("board");
 		String writer = (String) map.get("WRITER");	
 		MemberVO user = (MemberVO)session.getAttribute("sessionID");
 		if(!user.getId().equals(writer)) {
-			rttr.addFlashAttribute("msg", "작성자가 아닙니다!");
-			return "redirect:/notice/list";
+			model.addAttribute("msg", "작성자가 아닙니다!");
+			return "notice/notice";
 		}
+		
 		NoticeBoardVO vo = new NoticeBoardVO();
 		vo.setId(Integer.parseInt(String.valueOf(map.get("ID"))));
 		vo.setTitle((String)map.get("TITLE"));

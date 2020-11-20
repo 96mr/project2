@@ -49,7 +49,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(@Valid @ModelAttribute("member")MemberVO member, BindingResult binding, RedirectAttributes rttr) throws Exception {
+	public String register(@Valid @ModelAttribute("member")MemberVO member, BindingResult binding, 
+							RedirectAttributes rttr, Model model){
 		logger.info("register");
 		if(binding.hasErrors()) {	//유효성검사
 			return "register";
@@ -60,8 +61,8 @@ public class MemberController {
 			rttr.addFlashAttribute("msg", "성공적으로 가입되었습니다!");
 			return "redirect:/login";
 		}else {
-			rttr.addFlashAttribute("msg", "이미 존재하는 회원입니다");
-			return "redirect:/register";
+			model.addAttribute("msg", "이미 존재하는 회원입니다");
+			return "/register";
 		}
 	}
 	

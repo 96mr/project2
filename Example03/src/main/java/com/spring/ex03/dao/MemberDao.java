@@ -6,7 +6,7 @@ import java.util.Map;
 import com.spring.ex03.vo.MemberVO;
 
 public interface MemberDao {
-	public void register(MemberVO vo) throws Exception;
+	public void register(MemberVO vo);
 	public void authMember(String id) throws Exception;
 	public MemberVO login(String id) throws Exception;
 	public Map<String, String> selectMember(String id) throws Exception;

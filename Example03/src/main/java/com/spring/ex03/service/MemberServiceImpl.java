@@ -21,17 +21,20 @@ public class MemberServiceImpl implements MemberService{
 	BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
-	public int register(MemberVO vo) throws Exception {
-		MemberVO member = dao.login(vo.getId());
-		//존재하는 아이디 여부
-		if(member == null) {
-			vo.setPassword(passwordEncoder.encode(vo.getPassword()));
-			dao.register(vo);
-			System.out.println("회원가입성공!");
-			return 1;
-		}else {
-			return 0;
+	public int register(MemberVO vo) {
+		MemberVO member;
+		int result = 0;
+		try {
+			member = dao.login(vo.getId());
+			if(member == null) {
+				vo.setPassword(passwordEncoder.encode(vo.getPassword()));
+				dao.register(vo);
+				result = 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return result;
 	}
 
 	@Override
