@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.ex03.mapper.GalleryMapper">
+	<!-- 글 작성 -->
+	<insert id ="insert" parameterType="GalleryVO">
+		INSERT INTO 
+			GALLERY (id, org_name, save_name, file_size, writer, title) 
+		VALUES(gallery_seq.nextval, #{org_name}, #{save_name}, #{file_size}, #{writer}, #{title})
+	</insert>
+	
+	<select id="list" parameterType="HashMap" resultType="HashMap">
+	<![CDATA[	
+		SELECT id, title, org_name, save_name, file_size, REGDATE, writer
+		FROM(
+	        SELECT 
+	            ROWNUM AS RNUM, b.*
+	        FROM (
+	        	SELECT g.*, m.name
+	            FROM GALLERY g
+	            INNER JOIN MEMBER m
+	            ON g.writer = m.id
+	 ]]>
+	            ORDER BY g.id desc
+	 <![CDATA[
+	        ) b
+	        WHERE
+	            ROWNUM <= #{last_board}
+    	) board
+		WHERE #{start_board} <= RNUM
+	]]>
+	</select>
+	
+	<select id="count" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM GALLERY
+	</select>
+	
+</mapper>

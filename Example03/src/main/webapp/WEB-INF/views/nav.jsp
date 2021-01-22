@@ -9,7 +9,7 @@
                     <a class="nav-link" href="${pageContext.request.contextPath }/notice/list">공지사항</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath }/gallery">갤러리</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath }/gallery/list">갤러리</a>
                 </li>
             </ul>
         </div>

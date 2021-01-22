@@ -9,6 +9,7 @@
 		<typeAlias type="com.spring.ex03.vo.NoticeBoardVO" alias="NoticeBoardVO" />
 		<typeAlias type="com.spring.ex03.vo.NoticeFileVO" alias="NoticeFileVO" />
 		<typeAlias type="com.spring.ex03.vo.CategoryVO" alias="CategoryVO" />
+		<typeAlias type="com.spring.ex03.vo.GalleryVO" alias="GalleryVO" />
 	</typeAliases>
 	
 </configuration>

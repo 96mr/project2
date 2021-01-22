@@ -25,7 +25,8 @@
     <div class="container justify-content-center">
     	<%@ include file="/WEB-INF/views/nav.jsp"%>
 		<div class="justify-content-center" style="height: 100vh">
-			<div class="bg-info p-4" style="height: 25vh;">
+			<div class="p-4 text-light" 
+				style="height:25vh;background-image:url('${pageContext.request.contextPath }/resources/images/notion_img.jpg');">
 				<h1>공지사항</h1>
 				<h5>인스 소식과 정보를 안내해드립니다.</h5>
 			</div>

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <style>
+    	label{cursor:pointer}
+  		input[type="file"]{display:none;}
     </style>
     <title>INNERSPACE</title>
 </head>
@@ -23,64 +25,45 @@
 				<h5>인스 추억을 담는 공간입니다.</h5>
 			</div>
 			<div class="mt-4">
+				<c:if test="${sessionID.verify == 9 || sessionID.verify == 1}">
+				<div class="text-right">
+					<a href="${pageContext.request.contextPath}/gallery/upload">사진업로드</a>	
+				</div>
+				</c:if>
 				<div id="gallery-list">
 					<div class="row justify-content-center m-4">
-						<div class="col-sm-3 p-2">
-							<div class="card p-2">
-								<img src="케로베로니.gif" class="card-img" style="width: 100%;" alt="...">
-								<div class="card-body">
-									<h4 class="card-title">2016</h4>
-									<p class="card-text">
-										<small class="text-muted"> 이메일 : @gmail.com<br>
-										</small>
-									</p>
+						<c:forEach var="list" items="${list}">
+							<div class="col-sm-3 p-2">
+								<div class="card p-2">
+									<img src="${pageContext.request.contextPath}/resources/images/${list.SAVE_NAME}" class="card-img" style="width: 100%;" alt="...">
+									<div class="card-body">
+										<h4 class="card-title">${list.TITLE}</h4>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-3 p-2">
-							<div class="card p-2">
-								<img src="panda_maltesers.png" class="card-img" style="width: 100%;" alt="...">
-								<div class="card-body">
-									<h4 class="card-title">2017</h4>
-									<p class="card-text">
-										<small class="text-muted"> 이메일 : @gmail.com<br>
-										</small>
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 p-2">
-							<div class="card p-2">
-								<img src="panda_maltesers.png" class="card-img"	style="width: 100%;" alt="...">
-								<div class="card-body">
-									<h4 class="card-title">2018</h4>
-									<p class="card-text">어쩌고 저쩌고 날입니다</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3 p-2">
-							<div class="card p-2">
-								<img src="panda_maltesers.png" class="card-img" style="width: 100%;" alt="...">
-								<div class="card-body">
-									<h4 class="card-title">2019</h4>
-									<p class="card-text">어찌저찌 한 날입니다.</p>
-								</div>
-							</div>
-						</div>
+						</c:forEach>		
 					</div>
 				</div>
 				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#">◀</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#">▶</a></li>
+					<c:if test="${paging.prev }">
+						<li class="page-item">
+						<a class="page-link" 
+							href="${pageContext.request.contextPath }/notice/list?page=${paging.start_page-1 }&category=${category}">◀</a>
+						</li>
+					</c:if>
+					<c:forEach var="i" begin ="${paging.start_page }" end="${paging.end_page }">
+	    				<li class="page-item">
+	    				<a class="page-link" 
+	    				href="${pageContext.request.contextPath }/notice/list?page=${i}&category=${category}">${i}</a>
+	    				</li>
+					</c:forEach>
+					<c:if test="${paging.next }">
+						<li class="page-item">
+						<a class="page-link" 
+						href="${pageContext.request.contextPath }/notice/list?page=${paging.end_page+1 }&category=${category}">▶</a>
+						</li>
+					</c:if>
 				</ul>
-				<c:if test="${sessionID.verify == 9 || sessionID.verify == 1}">
-					<a href="${pageContext.request.contextPath }/write"><i class="fas fa-pen fa-2x"></i></a>
-				</c:if>
 			</div>
 		</div>
 	</div>

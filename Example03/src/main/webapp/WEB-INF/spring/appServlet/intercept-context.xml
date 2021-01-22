@@ -16,6 +16,7 @@
 			<mapping path="/notice/write"/>
 			<mapping path="/notice/modify/*"/>
 			<mapping path="/profile"/>
+			<mapping path="/gallery/upload"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 		
